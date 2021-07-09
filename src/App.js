@@ -15,13 +15,13 @@ function App() {
 
   return (
     <Router>
-      <div className="App">
-        <Header />
+      <div className='App'>
+        <Header isLoggedIn={isLoggedIn} />
         <Switch>
-          <Route exact path="/">
+          <Route exact path='/'>
             <Main />
           </Route>
-          <Route exact path="/posts">
+          <Route exact path='/posts'>
             <Posts />
           </Route>
         </Switch>

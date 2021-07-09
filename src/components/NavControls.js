@@ -12,12 +12,21 @@ const VisitorLinks = () => {
     </>
   );
 };
-const memberLinks = () => {};
+const MemberLinks = () => {
+  return (
+    <>
+      <NavLink to="/">Profile</NavLink>
+      <NavLink to="/">Posts</NavLink>
+      <NavLink to="/">Create Post</NavLink>
+      <NavLink to="/">Logout</NavLink>
+    </>
+  );
+};
 
 const NavControls = ({ isLoggedIn }) => {
   return (
     <div className={classes['nav-controls']}>
-      {!isLoggedIn ? <VisitorLinks /> : null}
+      {!isLoggedIn ? <VisitorLinks /> : <MemberLinks />}
     </div>
   );
 };
