@@ -2,17 +2,16 @@ import React from 'react';
 
 import classes from './Header.module.css';
 
-import { Link } from 'react-router-dom';
+import NavControls from './NavControls';
 
-const Header = () => {
+const Header = (props) => {
+  const { isLoggedIn } = props;
   return (
     <header className={classes['nav-bar']}>
       {/* nav-bar */}
       <h2 className={classes.title}>Strangers' Things 2</h2>
-      <div className={classes['nav-controls']}>
-        <Link to="/">Home</Link>
-        <Link to="/posts">Posts</Link>
-      </div>
+      <NavControls isLoggedIn={isLoggedIn} />
+
       {/* search-filter */}
     </header>
   );
