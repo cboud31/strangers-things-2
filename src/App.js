@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import './App.css';
 
 import Header from './components/Header';
@@ -9,6 +10,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // import { fetchPosts } from './API/index';
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   // fetchPosts();
 
   return (
