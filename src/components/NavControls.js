@@ -2,31 +2,36 @@ import React from 'react';
 
 import classes from './NavControls.module.css';
 import NavLink from '../UI/NavLink';
+import Button from '../UI/Button';
 
-const VisitorLinks = () => {
+const VisitorLinks = ({ isLoggedIn, toggleLoginModal }) => {
   return (
     <>
-      <NavLink to="/">Home</NavLink>
-      <NavLink to="/posts">Posts</NavLink>
-      <NavLink to="/posts">Sign In/ Register</NavLink>
+      <NavLink to='/'>Home</NavLink>
+      <NavLink to='/posts'>Posts</NavLink>
+      <Button onClick={toggleLoginModal}>Sign In/ Register</Button>
     </>
   );
 };
 const MemberLinks = () => {
   return (
     <>
-      <NavLink to="/">Profile</NavLink>
-      <NavLink to="/">Posts</NavLink>
-      <NavLink to="/">Create Post</NavLink>
-      <NavLink to="/">Logout</NavLink>
+      <NavLink to='/'>Profile</NavLink>
+      <NavLink to='/'>Posts</NavLink>
+      <NavLink to='/'>Create Post</NavLink>
+      <Button>Logout</Button>
     </>
   );
 };
 
-const NavControls = ({ isLoggedIn }) => {
+const NavControls = ({ isLoggedIn, toggleLoginModal }) => {
   return (
     <div className={classes['nav-controls']}>
-      {!isLoggedIn ? <VisitorLinks /> : <MemberLinks />}
+      {!isLoggedIn ? (
+        <VisitorLinks toggleLoginModal={toggleLoginModal} />
+      ) : (
+        <MemberLinks />
+      )}
     </div>
   );
 };
