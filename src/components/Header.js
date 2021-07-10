@@ -5,12 +5,15 @@ import classes from './Header.module.css';
 import NavControls from './NavControls';
 
 const Header = (props) => {
-  const { isLoggedIn } = props;
+  const { isLoggedIn, toggleLoginModal } = props;
   return (
     <header className={classes['nav-bar']}>
       {/* nav-bar */}
       <h2 className={classes.title}>Strangers' Things 2</h2>
-      <NavControls isLoggedIn={isLoggedIn} />
+      <NavControls
+        isLoggedIn={isLoggedIn}
+        toggleLoginModal={toggleLoginModal}
+      />
 
       {/* search-filter */}
     </header>
