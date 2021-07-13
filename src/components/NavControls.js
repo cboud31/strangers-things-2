@@ -13,24 +13,28 @@ const VisitorLinks = ({ isLoggedIn, toggleLoginModal }) => {
     </>
   );
 };
-const MemberLinks = () => {
+const MemberLinks = ({ onLogout }) => {
   return (
     <>
       <NavLink to='/'>Profile</NavLink>
       <NavLink to='/'>Posts</NavLink>
       <NavLink to='/'>Create Post</NavLink>
-      <Button>Logout</Button>
+      <Button onClick={onLogout}>Logout</Button>
     </>
   );
 };
 
-const NavControls = ({ isLoggedIn, toggleLoginModal }) => {
+const NavControls = ({ isLoggedIn, setIsLoggedIn, toggleLoginModal }) => {
+  const onLogout = () => {
+    localStorage.removeItem('jwt');
+    setIsLoggedIn(false);
+  };
   return (
     <div className={classes['nav-controls']}>
       {!isLoggedIn ? (
         <VisitorLinks toggleLoginModal={toggleLoginModal} />
       ) : (
-        <MemberLinks />
+        <MemberLinks onLogout={onLogout} />
       )}
     </div>
   );

@@ -19,8 +19,17 @@ function App() {
   return (
     <Router>
       <div className='App'>
-        <Header isLoggedIn={isLoggedIn} toggleLoginModal={toggleLoginModal} />
-        {loginModal ? <LoginModal toggleLoginModal={toggleLoginModal} /> : null}
+        <Header
+          isLoggedIn={isLoggedIn}
+          setIsLoggedIn={setIsLoggedIn}
+          toggleLoginModal={toggleLoginModal}
+        />
+        {loginModal ? (
+          <LoginModal
+            toggleLoginModal={toggleLoginModal}
+            setIsLoggedIn={setIsLoggedIn}
+          />
+        ) : null}
         <Switch>
           <Route exact path='/'>
             <Main />
