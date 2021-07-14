@@ -10,29 +10,58 @@ const LoginModal = ({ toggleLoginModal, setIsLoggedIn }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [newUser, setNewUser] = useState(false);
-  // isNewUser
+  const [errorMessage, setErrorMessage] = useState(null);
 
-  const onSubmit = (event) => {
-    event.preventDefault();
-
-    // Remove this console.log before deployment
-    // console.log(`username: ${username}, password: ${password}`);
-    if (newUser) {
-      registerUser(username, password);
-    } else {
-      loginUser(username, password);
+  const onRegister = async (e) => {
+    e.preventDefault();
+    try {
+      const result = await registerUser(username, password);
+      if (!result.success) {
+        setErrorMessage(result.error.message);
+        setUsername('');
+        setPassword('');
+        return;
+      }
+      toggleLoginModal();
+      setIsLoggedIn(true);
+      localStorage.setItem('JWT', result.data.token);
+      return result;
+    } catch (error) {
+      console.error(error);
     }
+  };
 
-    toggleLoginModal();
-    setIsLoggedIn(true);
+  const onLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const result = await loginUser(username, password);
+      if (!result.success) {
+        setErrorMessage(result.error.message);
+        setUsername('');
+        setPassword('');
+        return;
+      }
+      toggleLoginModal();
+      setIsLoggedIn(true);
+      localStorage.setItem('JWT', result.data.token);
+      return result;
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
     <>
       <div className={classes.backdrop}></div>
       <div>
-        <form className={classes['login-modal']} onSubmit={onSubmit}>
+        <form
+          className={classes['login-modal']}
+          onSubmit={newUser ? onRegister : onLogin}
+        >
           <header>Register / Login</header>
+          <div className={classes['submission-feedback']}>
+            {errorMessage && <span>{errorMessage}</span>}
+          </div>
           <div className={classes['login-inputs-container']}>
             <div className={classes['login-input']}>
               <label>Username:</label>
@@ -58,9 +87,7 @@ const LoginModal = ({ toggleLoginModal, setIsLoggedIn }) => {
               <label>New User?</label>
               <input
                 type='checkbox'
-                // checked={newUser}
-                checked={true}
-                // value={newUser}
+                value={newUser}
                 onChange={(e) => setNewUser(e.target.value)}
               />
             </div>

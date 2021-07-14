@@ -26,7 +26,7 @@ const MemberLinks = ({ onLogout }) => {
 
 const NavControls = ({ isLoggedIn, setIsLoggedIn, toggleLoginModal }) => {
   const onLogout = () => {
-    localStorage.removeItem('jwt');
+    localStorage.removeItem('JWT');
     setIsLoggedIn(false);
   };
   return (

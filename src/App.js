@@ -24,12 +24,12 @@ function App() {
           setIsLoggedIn={setIsLoggedIn}
           toggleLoginModal={toggleLoginModal}
         />
-        {loginModal ? (
+        {loginModal && (
           <LoginModal
             toggleLoginModal={toggleLoginModal}
             setIsLoggedIn={setIsLoggedIn}
           />
-        ) : null}
+        )}
         <Switch>
           <Route exact path='/'>
             <Main />

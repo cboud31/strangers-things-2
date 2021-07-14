@@ -1,16 +1,6 @@
 const BASE_URL =
   'https://strangers-things.herokuapp.com/api/2007-LSU-RM-WEB-PT';
 
-// // Local storage functions needed:
-// setToken -- set token in local storage after register/login
-const setToken = (token) => {
-  localStorage.setItem('jwt', token);
-};
-
-// clearToken -- remove token on user logout
-const clearToken = () => {
-  localStorage.removeItem('jwt');
-};
 // getToken -- check for token in local storage to add to request header.
 const getToken = () => {
   return localStorage.getItem('jwt');
@@ -65,39 +55,41 @@ export const fetchPosts = async () => {
 };
 
 export const registerUser = async (username, password) => {
-  const bodyObj = {
-    user: {
-      username,
-      password,
-    },
-  };
+  try {
+    const bodyObj = {
+      user: {
+        username,
+        password,
+      },
+    };
 
-  const result = await fetch(
-    `${BASE_URL}/users/register`,
-    buildRequestHeaders('POST', bodyObj)
-  );
-  const response = await result.json();
-  const { data } = response;
-  // Remove this console.log before deployment.
-  console.log(data.token);
-  setToken(data.token);
+    const result = await fetch(
+      `${BASE_URL}/users/register`,
+      buildRequestHeaders('POST', bodyObj)
+    );
+    const response = await result.json();
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const loginUser = async (username, password) => {
-  const bodyObj = {
-    user: {
-      username,
-      password,
-    },
-  };
+  try {
+    const bodyObj = {
+      user: {
+        username,
+        password,
+      },
+    };
 
-  const result = await fetch(
-    `${BASE_URL}/users/login`,
-    buildRequestHeaders('POST', bodyObj)
-  );
-  const response = await result.json();
-  const { data } = response;
-  // Remove this console.log before deployment.
-  console.log(data.token);
-  setToken(data.token);
+    const result = await fetch(
+      `${BASE_URL}/users/login`,
+      buildRequestHeaders('POST', bodyObj)
+    );
+    const response = await result.json();
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
 };
